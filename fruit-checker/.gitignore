@@ -23,5 +23,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # webpack file
-
-/public/main.js
+/src/main.js
