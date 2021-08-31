@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import FruitList from './FruitList.jsx';
+
 export default class FruitChecker extends Component {
   constructor() {
     super();
 
     this.state = {
       fruits: [],
+      fruitNames: [],
     };
 
     this.getFruits = this.getFruits.bind(this);
   }
 
   componentDidMount() {
-    this.setState( { fruits: Examplefruits })
+    this.setState( {
+      fruits: Examplefruits,
+      fruitNames: getFruitNames(Examplefruits)
+    })
+
   }
   // **TODO** FIX AXIOS GET REQUEST for fruits DUE TO CORS POLICY
 
@@ -30,13 +37,12 @@ export default class FruitChecker extends Component {
   render() {
     return (
       <>
-        <section>
-          {this.state.fruits.map((fruit, index) =>
-          <div>
-            <img src={fruit} alt={index} height="500" width="500"></img>
-          </div>
-          )}
-        </section>
+        <div class='container'>
+          <FruitList
+            fruits={this.state.fruits}
+            fruitNames={this.state.fruitNames}
+          />
+        </div>
       </>
     )
   }
@@ -59,3 +65,11 @@ const Examplefruits = [
   "https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/tomato.png",
   "https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/watermelon.png"
 ];
+
+const getFruitNames = (links) => {
+  return links.map(link => {
+      const url = new URL(link);
+      let regx = /^(.+)\/([^\/]+).png$/;
+      return link.match(regx)[2];
+  })
+};
