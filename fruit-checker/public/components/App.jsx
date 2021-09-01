@@ -5,8 +5,8 @@ export default class App extends Component {
   render() {
     return (
       <>
-      <h1>Fruit Checker</h1>
-      <FruitChecker />
+        <h1>Fruit Checker</h1>
+        <FruitChecker />
       </>
     )
   }

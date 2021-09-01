@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import FruitList from './FruitList.jsx';
+import HighlightedFruit from './HighlightedFruit.jsx';
 
 export default class FruitChecker extends Component {
   constructor() {
@@ -10,28 +11,50 @@ export default class FruitChecker extends Component {
     this.state = {
       fruits: [],
       fruitNames: [],
+      highlightedFruit: false,
+      highlightedFruitName: '',
+      highlightedFruitPic: '',
+      hightlightedFruitInfo: '',
+
     };
 
     this.getFruits = this.getFruits.bind(this);
+    this.highlightFruit = this.highlightFruit.bind(this);
   }
 
   componentDidMount() {
-    this.setState( {
-      fruits: Examplefruits,
-      fruitNames: getFruitNames(Examplefruits)
-    })
-
+    this.getFruits();
   }
   // **TODO** FIX AXIOS GET REQUEST for fruits DUE TO CORS POLICY
 
   getFruits() {
-    axios.get('https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/fruit-images.json', {
-      headers: {
-        'Access-Control-Allow-Origin': true,
-      },
+    axios.get('/fruits')
+      .then(({data}) => {
+        this.setState( {
+          fruits: data,
+          fruitNames: getFruitNames(data)
+        })
       })
-      .then(console.log)
       .catch(console.log);
+  }
+
+  highlightFruit(fruitName, fruitPic) {
+    // const apiCall = fruitAPI.concat(fruitName);
+    // axios.get(apiCall)
+    //   .then(console.log)
+    //   .then((res) => {
+    //     this.setState({
+    //       highlightedFruit: true,
+    //       hightlightedFruitInfo: res
+    //     })
+    //   })
+    console.log('this works');
+    this.setState({
+      highlightedFruitName: fruitName,
+      highlightedFruitPic: fruitPic,
+      highlightedFruit: !this.state.highlightedFruit,
+    })
+
   }
 
   render() {
@@ -41,7 +64,20 @@ export default class FruitChecker extends Component {
           <FruitList
             fruits={this.state.fruits}
             fruitNames={this.state.fruitNames}
+            highlightFruit={this.highlightFruit}
           />
+        <section class="content__container">
+          {
+          this.state.highlightedFruit ?
+            <HighlightedFruit
+              fruitInfo={this.state.hightlightedFruitInfo}
+              fruitPic={this.state.highlightedFruitPic}
+              fruitName={this.state.highlightedFruitName}
+            />
+          :
+            <p>highlighted fruit</p>
+          }
+        </section>
         </div>
       </>
     )
@@ -68,7 +104,6 @@ const Examplefruits = [
 
 const getFruitNames = (links) => {
   return links.map(link => {
-      const url = new URL(link);
       let regx = /^(.+)\/([^\/]+).png$/;
       return link.match(regx)[2];
   })
