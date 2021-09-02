@@ -11,8 +11,7 @@ export default class FruitChecker extends Component {
     this.state = {
       fruits: [],
       fruitNames: [],
-      highlightedFruit: false,
-      highlightedFruitName: '',
+      highlightedFruit: true,
       highlightedFruitPic: '',
       hightlightedFruitInfo: '',
 
@@ -25,7 +24,6 @@ export default class FruitChecker extends Component {
   componentDidMount() {
     this.getFruits();
   }
-  // **TODO** FIX AXIOS GET REQUEST for fruits DUE TO CORS POLICY
 
   getFruits() {
     axios.get('/fruits')
@@ -39,21 +37,16 @@ export default class FruitChecker extends Component {
   }
 
   highlightFruit(fruitName, fruitPic) {
-    // const apiCall = fruitAPI.concat(fruitName);
-    // axios.get(apiCall)
-    //   .then(console.log)
-    //   .then((res) => {
+    // axios.get(`/hightlightedFruit?fruit=${fruitName}`)
+    //   .then(({data}) => {
     //     this.setState({
     //       highlightedFruit: true,
-    //       hightlightedFruitInfo: res
+    //       highlightedFruitPic: fruitPic,
+    //       hightlightedFruitInfo: data
     //     })
     //   })
-    console.log('this works');
-    this.setState({
-      highlightedFruitName: fruitName,
-      highlightedFruitPic: fruitPic,
-      highlightedFruit: !this.state.highlightedFruit,
-    })
+    //   .catch(console.log);
+    // console.log('this works');
 
   }
 
@@ -70,9 +63,10 @@ export default class FruitChecker extends Component {
           {
           this.state.highlightedFruit ?
             <HighlightedFruit
-              fruitInfo={this.state.hightlightedFruitInfo}
-              fruitPic={this.state.highlightedFruitPic}
-              fruitName={this.state.highlightedFruitName}
+              // fruitInfo={this.state.hightlightedFruitInfo}
+              // fruitPic={this.state.highlightedFruitPic}
+              fruitInfo={fruitInfo}
+              fruitPic={fruitPic}
             />
           :
             <p>highlighted fruit</p>
@@ -84,27 +78,26 @@ export default class FruitChecker extends Component {
   }
 }
 
-const Examplefruits = [
-  "https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/apple.png",
-  "https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/apricot.png",
-  "https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/banana.png",
-  "https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/blueberry.png",
-  "https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/cherry.png",
-  "https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/guava.png",
-  "https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/lemon.png",
-  "https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/mango.png",
-  "https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/orange.png",
-  "https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/pear.png",
-  "https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/pineapple.png",
-  "https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/raspberry.png",
-  "https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/strawberry.png",
-  "https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/tomato.png",
-  "https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/watermelon.png"
-];
-
 const getFruitNames = (links) => {
   return links.map(link => {
       let regx = /^(.+)\/([^\/]+).png$/;
       return link.match(regx)[2];
   })
 };
+
+const fruitInfo = {
+  "genus":"Prunus",
+  "name":"Apricot",
+  "id":35,
+  "family":"Rosaceae",
+  "order":"Rosales",
+  "nutritions":{
+    "carbohydrates": 3.9,
+    "protein":0.5,
+    "fat":0.1,
+    "calories":15,
+    "sugar":3.2
+  }
+};
+
+const fruitPic = 'https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/apricot.png';
