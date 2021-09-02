@@ -14,7 +14,6 @@ export default class FruitChecker extends Component {
       highlightedFruit: false,
       highlightedFruitPic: '',
       hightlightedFruitInfo: '',
-
     };
 
     this.getFruits = this.getFruits.bind(this);
