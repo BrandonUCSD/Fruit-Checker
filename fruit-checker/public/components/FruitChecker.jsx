@@ -51,23 +51,27 @@ export default class FruitChecker extends Component {
   render() {
     return (
       <>
+        <header className='header'>
+          <h1>Fruit Checker</h1>
+        </header>
+
         <div class='container'>
           <FruitList
             fruits={this.state.fruits}
             fruitNames={this.state.fruitNames}
             highlightFruit={this.highlightFruit}
           />
-        <section class="content__container">
-          {
-          this.state.highlightedFruit ?
-            <HighlightedFruit
-              fruitInfo={this.state.hightlightedFruitInfo}
-              fruitPic={this.state.highlightedFruitPic}
-            />
-          :
-            <p>highlighted fruit</p>
-          }
-        </section>
+          <section class="content__container">
+            {
+            this.state.highlightedFruit ?
+              <HighlightedFruit
+                fruitInfo={this.state.hightlightedFruitInfo}
+                fruitPic={this.state.highlightedFruitPic}
+              />
+            :
+              <h1>Please select a fruit!</h1>
+            }
+          </section>
         </div>
       </>
     )
@@ -80,20 +84,3 @@ const getFruitNames = (links) => {
       return link.match(regx)[2];
   })
 };
-
-const fruitInfo = {
-  "genus":"Prunus",
-  "name":"Apricot",
-  "id":35,
-  "family":"Rosaceae",
-  "order":"Rosales",
-  "nutritions":{
-    "carbohydrates": 3.9,
-    "protein":0.5,
-    "fat":0.1,
-    "calories":15,
-    "sugar":3.2
-  }
-};
-
-const fruitPic = 'https://passport-media.s3-us-west-1.amazonaws.com/images/eng-intern-interview/apricot.png';
