@@ -23,8 +23,8 @@ A link to a deployed version of repo (AWS EC2 Instance) </br>
 
 <ul>
   <li><b>Javascript</b></li>
-  <li><b>React</b>(to render the frontend)</li>
-  <li><b<Webpack/Babel</b>(to bundle HTML to serve up via backend)</li>
+  <li><b>React</b> (to render the frontend)</li>
+  <li><b>Webpack/Babel</b> (to bundle HTML to serve up via backend)</li>
   <li><b>Node.js</b> using the ExpressJS framework (send API calls and act as brackend proxy for frontend service) </li>
   <li><b>Amazon Web Services (AWS)</b> EC2 t2.micro instance to deploy application </li>
 </ul>
