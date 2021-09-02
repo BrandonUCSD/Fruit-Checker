@@ -11,7 +11,7 @@ export default class FruitChecker extends Component {
     this.state = {
       fruits: [],
       fruitNames: [],
-      highlightedFruit: true,
+      highlightedFruit: false,
       highlightedFruitPic: '',
       hightlightedFruitInfo: '',
 
@@ -37,17 +37,15 @@ export default class FruitChecker extends Component {
   }
 
   highlightFruit(fruitName, fruitPic) {
-    // axios.get(`/hightlightedFruit?fruit=${fruitName}`)
-    //   .then(({data}) => {
-    //     this.setState({
-    //       highlightedFruit: true,
-    //       highlightedFruitPic: fruitPic,
-    //       hightlightedFruitInfo: data
-    //     })
-    //   })
-    //   .catch(console.log);
-    // console.log('this works');
-
+    axios.get(`/hightlightedFruit?fruit=${fruitName}`)
+      .then(({data}) => {
+        this.setState({
+          highlightedFruit: true,
+          highlightedFruitPic: fruitPic,
+          hightlightedFruitInfo: data
+        })
+      })
+      .catch(console.log);
   }
 
   render() {
@@ -63,10 +61,8 @@ export default class FruitChecker extends Component {
           {
           this.state.highlightedFruit ?
             <HighlightedFruit
-              // fruitInfo={this.state.hightlightedFruitInfo}
-              // fruitPic={this.state.highlightedFruitPic}
-              fruitInfo={fruitInfo}
-              fruitPic={fruitPic}
+              fruitInfo={this.state.hightlightedFruitInfo}
+              fruitPic={this.state.highlightedFruitPic}
             />
           :
             <p>highlighted fruit</p>
